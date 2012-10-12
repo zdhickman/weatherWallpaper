@@ -83,16 +83,24 @@ def get_condition_filter(c):
 		
 def read_location_code(config_file):
 	line = config_file.readline()
-	line = line[:-2]
+	line = line[:-1]
 	line = line[9:]
 	if line == "":
 		return 2354302  # Boston, MA default
 	return int(line)
+
+def read_wallpaper_path(config_file):
+	line = config_file.readline()
+	line = line[:-2]
+	line = line[15:]
+	if line == "":
+		return "."
+	return line
 	
-def weather_desktop(w_struct):
+def weather_desktop(w_struct, f):
 	time = get_time_string(w_struct['hour'])
 	condition = get_condition_filter(w_struct['conditions'])
-	path = "./wallpapers/" + condition  + "/" + time + "/wallpaper.jpg"
+	path = read_wallpaper_path(f) + "/wallpapers/" + condition  + "/" + time + "/wallpaper.jpg"
 	return path
 	
 def do_paper_change(path):
@@ -101,4 +109,5 @@ def do_paper_change(path):
 
 f = open('./config.sys', 'r')
 location_code = read_location_code(f)	
-do_paper_change(weather_desktop(get_weather(location_code)))
+do_paper_change(weather_desktop(get_weather(location_code), f))
+f.close()
