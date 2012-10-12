@@ -25,7 +25,7 @@ General Instructions
 
 1. Open weatherwallpaper.cfg
 
-2. For `location_code`, enter the code that appears in the URL when you view
+2. For `location`, enter the code that appears in the URL when you view
 your area's weather on [Yahoo! Weather](http://www.weather.yahoo.com).
 
 3. For `wallpaper_path`, enter in a path to the location of your /wallpaper/
