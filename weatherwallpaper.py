@@ -81,7 +81,13 @@ def get_condition_filter(c):
 	else:
 		return "clear"
 		
-
+def read_location_code(config_file):
+	line = config_file.readline()
+	line = line[:-2]
+	line = line[9:]
+	if line == "":
+		return 2354302  # Boston, MA default
+	return int(line)
 	
 def weather_desktop(w_struct):
 	time = get_time_string(w_struct['hour'])
@@ -91,6 +97,8 @@ def weather_desktop(w_struct):
 	
 def do_paper_change(path):
 	ctypes.windll.user32.SystemParametersInfoA(20, 0, path , 0)
-	print path
-	
-do_paper_change(weather_desktop(get_weather(2354302)))
+	print path + "    ."
+
+f = open('./config.sys', 'r')
+location_code = read_location_code(f)	
+do_paper_change(weather_desktop(get_weather(location_code)))
